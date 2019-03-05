@@ -86,6 +86,61 @@ def gradAscent(dataMatIn, classLabels):
 	weights_array = weights_array.reshape(maxCycles,n)
 	return weights.getA(),weights_array									#将矩阵转换为数组，并返回
 
+
+"""
+函数说明:随机梯度上升算法
+
+Parameters:
+	dataMatrix - 数据数组
+	classLabels - 数据标签
+	numIter - 迭代次数
+Returns:
+	weights - 求得的回归系数数组(最优参数)
+	weights_array - 每次更新的回归系数
+"""
+def stocGradAscent0(dataMatrix, classLabels):
+	m,n = np.shape(dataMatrix)
+	alpha = 0.01												#返回dataMatrix的大小。m为行数,n为列数。
+	weights = np.ones(n)   													#参数初始化
+	weights_array = np.array([])											#存储每次更新的回归系数
+	for i in range(m):											
+		h = sigmoid(sum(dataMatrix[i]*weights))					#选择随机选取的一个样本，计算h
+		error = classLabels[i] - h 								#计算误差
+		weights = weights + alpha * error * dataMatrix[i]   	#更新回归系数
+		weights_array = np.append(weights_array,weights,axis=0) 		#添加回归系数到数组中
+	weights_array = weights_array.reshape(m,n) 						#改变维度
+	return weights,weights_array 											#返回
+
+
+"""
+函数说明:随机梯度上升算法
+
+Parameters:
+	dataMatrix - 数据数组
+	classLabels - 数据标签
+	numIter - 迭代次数
+Returns:
+	weights - 求得的回归系数数组(最优参数)
+	weights_array - 每次更新的回归系数
+"""
+def stocGradAscent00(dataMatrix, classLabels):
+	m,n = np.shape(dataMatrix)
+	alpha = 0.01												#返回dataMatrix的大小。m为行数,n为列数。
+	weights = np.ones(n)   													#参数初始化
+	weights_array = np.array([])											#存储每次更新的回归系数
+	Iter = 2
+	for j in range(Iter):
+		for i in range(m):											
+			h = sigmoid(sum(dataMatrix[i]*weights))					#选择随机选取的一个样本，计算h
+			error = classLabels[i] - h 								#计算误差
+			weights = weights + alpha * error * dataMatrix[i]   	#更新回归系数
+			weights_array = np.append(weights_array,weights,axis=0) 		#添加回归系数到数组中
+	weights_array = weights_array.reshape(m*Iter,n) 						#改变维度
+	return weights,weights_array 											#返回
+
+
+
+
 """
 函数说明:改进的随机梯度上升算法
 
@@ -179,7 +234,7 @@ Modify:
 """
 def plotWeights(weights_array1,weights_array2):
 	#设置汉字格式
-	font = FontProperties(fname=r"c:\windows\fonts\simsun.ttc", size=14)
+	font = FontProperties(fname=r"c:\windows\fonts\simsunb.ttf", size=14)
 	#将fig画布分隔成1行1列,不共享x轴和y轴,fig画布的大小为(13,8)
 	#当nrow=3,nclos=2时,代表fig画布被分为六个区域,axs[0][0]表示第一行第一列
 	fig, axs = plt.subplots(nrows=3, ncols=2,sharex=False, sharey=False, figsize=(20,10))
