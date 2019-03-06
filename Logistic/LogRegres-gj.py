@@ -234,7 +234,7 @@ Modify:
 """
 def plotWeights(weights_array1,weights_array2):
 	#设置汉字格式
-	font = FontProperties(fname=r"c:\windows\fonts\simsunb.ttf", size=14)
+	font = FontProperties(fname=r"c:\windows\fonts\simsun.ttc", size=14)
 	#将fig画布分隔成1行1列,不共享x轴和y轴,fig画布的大小为(13,8)
 	#当nrow=3,nclos=2时,代表fig画布被分为六个区域,axs[0][0]表示第一行第一列
 	fig, axs = plt.subplots(nrows=3, ncols=2,sharex=False, sharey=False, figsize=(20,10))
